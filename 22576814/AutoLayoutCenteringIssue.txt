@@ -1,0 +1,31 @@
+Auto Layout calculates a fractional point position of a layer-backed view on a non-retina screen.
+
+I setup a simple window with a segmented control centered both horizontally and vertically in its container. Additionally, two text labels are attached, one at each end of a segmented control. All UI is setup in Interface Builder, no programmatically-added constraints, no VFL at all. One of the parent container views is layer backed (enabled via checkbox in IB inspector pane).
+
+When being shown on a non-retina screen (standard DPI) both segmented control and text labels render blurry. The issue is easily reproducible by moving split view separator a little or by altering a window width. After looking at Xcode's View Debugger it's become clear that X position of views frame becomes fractional by 0.5. This should never happen on standard DPI screens.
+
+I've made a screencast demonstrating the issue. See attached files.
+
+
+1. Open OutlineViewConstraintsIssue.xcodeproj
+2. Build & Run
+3. A sole window with a segmented control and labels appears.
+4. All controls are rendered clear.
+5. Alter the split view separator position a little.
+
+
+All controls still render sharp and clear.
+
+Controls become blurry. Their frame.position.x coordinate becomes fractional by 0.5 points.
+
+
+MacBook Pro (Retina, Mid 2012) with an external standard-DPI monitor.
+
+The same behaviour is seen on MacBook Air with a standard screen.
+
+
+OS X Yosemite 10.10.5 (14F27)
+Xcode 6.4 (6E35b)
+
+
+If I turn off layer backing for the whole tree the views render clear, but the title texts still look strange and weird because of irregular kerning that alters itself on every point of view's superview resize.
