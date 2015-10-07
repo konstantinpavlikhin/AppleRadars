@@ -1,0 +1,47 @@
+Title
+NSOutlineView temporarily sets the row height to the incorrect value
+
+Description
+I setup an NSOutlineView with two types of nested NSTableCellViews: one for a 'group' items and another — for a 'leaf' items. Each cell type should have a custom row height. I do implement an -outlineViewheightOfRowByItem: method and perform prototype cells measurements. All of my cells are laid-out with Auto Layout. The constraints fully define the final height of a cell. That is, height is not ambigous and depends only on the subviews configuration. I instantiate a cell prototype, constrain its width to the width of a current table column, call -layoutSubtreeIfNeeded and get the [prototype fittingSize].height, which is being returned to the outline view. Everything works as expected. Except the one case, when numerous outline view items are being expanded in a batch.
+
+I've made a small screencast with a demonstration of the issue. See attachments.
+
+Steps to reproduce
+1. Open an OutlineViewConstraintsIssue.xcodeproj
+2. Build & Run
+3. The window with an outline view appears.
+4. Click on some disclosure triangles to make sure everything is OK
+5. Press ⌘+a to select all of the items in a table
+6. Press a right-facing arrow on a keyboard to expand all of the items
+7. Press a left-facing arrow on a keyboard to collapse all of the items
+8. Notice a constraints conflict exception in a console
+
+Expected results
+Everything works, all rows have a correct height that was earlier returned from the delegate method (just like when items are being expanded/collapsed individually)
+
+Actual results
+Constraints conflict:
+2015-09-04 13:05:26.541 OutlineViewConstraintsIssue[26097:921879] Unable to simultaneously satisfy constraints:
+(
+    "<NSLayoutConstraint:0x618000083980 V:|-(20)-[NSTextField:0x618000181ad0]   (Names: TallTableCellView:0x618000181a00, '|':TallTableCellView:0x618000181a00 )>",
+    "<NSLayoutConstraint:0x6180000839d0 V:[NSTextField:0x618000181ad0]-(20)-|   (Names: TallTableCellView:0x618000181a00, '|':TallTableCellView:0x618000181a00 )>",
+    "<NSLayoutConstraint:0x618000083b60 'NSView-Encapsulated-Layout-Height' V:[TallTableCellView(27)]   (Names: TallTableCellView:0x618000181a00 )>"
+)
+
+Will attempt to recover by breaking constraint 
+<NSLayoutConstraint:0x6180000839d0 V:[NSTextField:0x618000181ad0]-(20)-|   (Names: TallTableCellView:0x618000181a00, '|':TallTableCellView:0x618000181a00 )>
+
+NSOutlineView applies an incorrect height to some rows. The outline view in a sample project has two types of cells, one tall (57 points in height) and one short (27 points in height). What we see is that short table cell view height (27 points) is being applied to the tall table cell view (which has to be 57 points exactly). Seems like this may be caused by a table row view reuse with a frame still keeping the old value.
+
+Configuration
+
+Xcode Version, OS X Version
+OS X Yosemite 10.10.5
+Xcode 6.4 (6E35b)
+
+Additional Notes
+There are two possible workarounds for this issue:
+1. Do not constrain a table cell view's height at all.
+2. Constraint a table cell view's height, but lower the priority in a way it is not required (@1000).
+
+I always thought that NSTableView/NSOutlineView do maintain the invariant, that all row views always have the same heights that were previously returned from a delegate. Seems like this is being violated.
