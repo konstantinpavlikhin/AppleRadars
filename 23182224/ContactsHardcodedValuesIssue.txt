@@ -1,0 +1,59 @@
+## Title
+CNContactsUserDefaults -countryCode and -sortOrder getters return hardcoded values
+
+## Description
+-[CNContactsUserDefaults countryCode] and -[CNContactsUserDefaults sortOrder] methods always return the same values regardless of the current system configuration. Further investigation (disassembly to pseudocode) revealed the fact that returned values are actually hardcoded and don't depent on any system or Contacts.app preferences.
+
+##  Steps to reproduce
+1. Import a Contacts framework
+2. Get a shared CNContactsUserDefaults instance
+3. Call a -countryCode getter
+4. Call a -sortOrder getter
+
+## Expected Results
+(taken from the docs)
+-countryCode returns a string with an operating system’s configured language.
+-sortOrder returns a sort order enum that is determined by the operating system’s configured language or overridden by the user.
+
+## Actual Results
+-countryCode always returns @"us"
+-sortOrder always returns CNContactSortOrderFamilyName
+
+## Configuration
+
+## Xcode Version/Build & OS X Version/Build
+Xcode 7.0.1 (7A1001)
+OS X 10.11.1 (15B38b)
+
+## Additional Notes
+
+### Contacts.framework disassembly:
+void * -[CNContactsUserDefaults countryCode](void * self, void * _cmd)
+{
+  rbx = *objc_msgSend;
+  rdi = [CNFoundationUserDefaults sharedDefaults];
+  rax = [rdi countryCode];
+  return rax;
+}
+
+long long -[CNContactsUserDefaults sortOrder](void * self, void * _cmd)
+{
+  rbx = *objc_msgSend;
+  rax = [CNFoundationUserDefaults sharedDefaults];
+  rax = [rax sortOrder];
+  rax = LOBYTE(rax == 0x1 ? 0x1 : 0x0) & 0xff | 0x2;
+  return rax;
+}
+
+### ContactsFoundation.framework disassembly:
+void * -[CNFoundationUserDefaults countryCode](void * self, void * _cmd)
+{
+  loc_176f6(STK0, STK-1);
+  eax = @"us";
+  return eax;
+}
+
+unsigned int -[CNFoundationUserDefaults sortOrder](void * self, void * _cmd)
+{
+  return 0x1;
+}
