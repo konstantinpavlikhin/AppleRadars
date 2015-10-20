@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15B38b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="HeightValueTableCellView" id="tjw-ye-o1w" userLabel="HeightValueTableCellView" customClass="HeightValueTableCellView">
+            <rect key="frame" x="0.0" y="0.0" width="142" height="56"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="IdB-TD-CjA">
+                    <rect key="frame" x="51" y="20" width="41" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Label" usesSingleLineMode="YES" id="WhA-78-Vjw">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="IdB-TD-CjA" firstAttribute="centerY" secondItem="tjw-ye-o1w" secondAttribute="centerY" id="BJi-fP-fRs"/>
+                <constraint firstItem="IdB-TD-CjA" firstAttribute="centerX" secondItem="tjw-ye-o1w" secondAttribute="centerX" id="Zah-Hb-vhW"/>
+            </constraints>
+            <animations/>
+            <connections>
+                <outlet property="label" destination="IdB-TD-CjA" id="xE4-GR-lvL"/>
+            </connections>
+            <point key="canvasLocation" x="232" y="145"/>
+        </customView>
+    </objects>
+</document>

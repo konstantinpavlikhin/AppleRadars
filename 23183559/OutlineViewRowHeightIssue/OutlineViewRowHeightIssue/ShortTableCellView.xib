@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="8191" systemVersion="15B38b" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+    <dependencies>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="8191"/>
+    </dependencies>
+    <objects>
+        <customObject id="-2" userLabel="File's Owner"/>
+        <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customView identifier="ShortTableCellView" id="EIa-ps-pgZ" userLabel="ShortTableCellView" customClass="ShortTableCellView">
+            <rect key="frame" x="0.0" y="0.0" width="291" height="24"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+            <subviews>
+                <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="0hx-kk-Zq3">
+                    <rect key="frame" x="18" y="4" width="122" height="17"/>
+                    <animations/>
+                    <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" sendsActionOnEndEditing="YES" title="ShortTableCellView" id="mL9-ZI-1zA">
+                        <font key="font" metaFont="system"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+                <textField horizontalHuggingPriority="1000" verticalHuggingPriority="1000" translatesAutoresizingMaskIntoConstraints="NO" id="jkn-Ld-Rhs" userLabel="HeightLabel">
+                    <rect key="frame" x="144" y="4" width="37" height="14"/>
+                    <animations/>
+                    <textFieldCell key="cell" controlSize="small" lineBreakMode="truncatingTail" sendsActionOnEndEditing="YES" alignment="center" title="Label" usesSingleLineMode="YES" id="OvU-yc-m22" userLabel="HeightLabelCell">
+                        <font key="font" metaFont="smallSystem"/>
+                        <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
+                        <color key="backgroundColor" name="controlColor" catalog="System" colorSpace="catalog"/>
+                    </textFieldCell>
+                </textField>
+            </subviews>
+            <constraints>
+                <constraint firstItem="jkn-Ld-Rhs" firstAttribute="leading" secondItem="0hx-kk-Zq3" secondAttribute="trailing" constant="8" symbolic="YES" id="8LC-us-LOG"/>
+                <constraint firstItem="jkn-Ld-Rhs" firstAttribute="baseline" secondItem="0hx-kk-Zq3" secondAttribute="baseline" id="SOa-Y1-xn1"/>
+                <constraint firstItem="0hx-kk-Zq3" firstAttribute="leading" secondItem="EIa-ps-pgZ" secondAttribute="leading" constant="20" id="b3o-hN-tZC"/>
+                <constraint firstItem="0hx-kk-Zq3" firstAttribute="centerY" secondItem="EIa-ps-pgZ" secondAttribute="centerY" id="its-xq-a0c"/>
+            </constraints>
+            <animations/>
+            <connections>
+                <outlet property="heightLabel" destination="jkn-Ld-Rhs" id="dJA-Nw-iwm"/>
+                <outlet property="label" destination="0hx-kk-Zq3" id="LhI-pS-TPr"/>
+            </connections>
+            <point key="canvasLocation" x="236.5" y="118"/>
+        </customView>
+    </objects>
+</document>

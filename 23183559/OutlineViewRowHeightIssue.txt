@@ -1,0 +1,31 @@
+## Title
+Source list NSOutlineView doesn't respect a row height returned by its delegate
+
+## Description
+I have source list NSOutlineView that is configured to have rows of variable height. I've implemented an -outlineView:heightOfRowByItem: delegate method to return appropriate values for each item. When outline view is first loaded the actual height of a group row is lower than expected by 2 points. When a new group row is inserted above the existing one the row gets shrunk even more.
+
+##  Steps to reproduce
+1. Open the attached OutlineViewRowHeightIssue.xcodeproj
+2. Build and Run
+3. The "OutlineViewRowHeightIssue" window appears
+4. Look at the sole source list entry, its actual height is 22 points (outline view's delegate returned 24 for this row!)
+5. Hover over the entry so the "Show" button appears, click on it
+6. Click on the "Insert section at the beginning" button to insert a new empty section
+7. A new section appears at the top of the list
+8. Notice the height of the sections: the new one has 22 points, while the old one had shrunk to 18 points
+
+## Expected Results
+Both section rows are always n points tall, where n is a value returned by -outlineView:heightOfRowByItem:. (24 points for the sample app).
+
+## Actual Results
+Section rows height is being altered. After initial -reloadData the height is lowered by two points, but after insertion of a new section above existing one its height shrinks down by additional 4 points. (18 points for the sample app).
+
+## Configuration
+
+## Xcode Version/Build & OS X Version/Build
+Xcode 7.0.1 (7A1001)
+OS X 10.11.1 (15B38b)
+
+## Additional Notes
+
+I've made a screencast demonstrating the issue.
