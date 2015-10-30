@@ -1,0 +1,25 @@
+## Title
+SecTransformExecute leaks memory
+
+## Description
+When you use a SecTransformExecute to run a hash transform (kSecDigestSHA1, kSecDigestMD5 and so on...) your app leaks memory.
+
+## Steps to reproduce
+1. Open an attached sample project
+2. Build and run
+3. Program calculates a SHA1 digest of the same data 100000 times
+
+## Expected Results
+Digests are calculated, memory consumption is hardly noticeable.
+
+## Actual Results
+Digests are calculated, but multiple gigabytes of RAM are 'eaten'.
+
+## Configuration
+The same code built with a 10.9 SDK does not leak.
+
+## Xcode Version/Build & OS X Version/Build
+Xcode 7.1 (7B91b)
+OS X 10.11.2 (15C27e)
+
+## Additional Notes
