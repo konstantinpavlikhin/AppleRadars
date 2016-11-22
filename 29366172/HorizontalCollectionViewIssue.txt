@@ -1,0 +1,31 @@
+Classification:
+Serious Bug
+
+Reproducibility:
+Always
+
+## Title
+The new NSCollectionView (10.11+) does not re-tile correctly after resizing
+
+## Description
+`NSCollectionView` with a custom horizontal layout does not re-tile correctly after its height is altered.
+
+## Steps to reproduce
+0. Download the sample code
+1. Open the HorizontalCollectionViewIssue Xcode project
+2. Build and run
+3. The window with a horizontal collection view of 42 cards appears
+4. Shrink the window to a half of its initial height
+
+## Expected Results
+Collection view resizes the visible cells and tiles the vacated space with more cells.
+
+## Actual Results
+The visible cells are resized, but no cells are being added to the vacated space. Sometimes you can trigger tiling with a scrolling, sometimes the collection view may stay nearly empty until you continue to resize it further.
+
+## Versions
+macOS Version 10.12.1 (16B2657)
+Xcode Version 8.1 (8B62)
+
+## Additional Notes
+I've made a screencast that demonstrates the issue, see "HorizontalCollectionViewIssue.mov".
