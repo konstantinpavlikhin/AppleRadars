@@ -1,0 +1,42 @@
+Classification:
+Serious Bug
+
+Reproducibility:
+Always
+
+## Title
+`NSScrubber` erroneously shifts selection after insertion takes place
+
+## Description
+Imagine you have a scrubber that lists some items. One of those items is selected. Your model changes (one element is appended at the end) and you react. You tell the scrubber to insert new element. You expect the selection to be maintained, but for some reason it jumps to the newly inserted element. It seems like this behaviour depends on number of items in the scrubber and the index of current selection.
+
+I've made a sample project that demonstrates the issue.
+
+## Steps to reproduce
+0. Download the attached sample project
+1. Open a ScrubberSelectionIssue Xcode project
+2. Build and run
+3. Open a Touch Bar simulator window
+4. Focus on the app's window and look on the touch bar: a list of textual elements 0...9 should appear with last element being selected
+5. Click on the 'Append Element' button to insert new element at the end of array
+
+## Expected Results
+A new element is appended at the end while the existing selection is maintained.
+
+## Actual Results
+A new element is appended at the end and selection is shifted one element to the right.
+
+## Version
+macOS 10.12.1 (16B2657)
+Xcode Version 8.1 (8B62)
+
+I've also tested this on macOS 10.12.2 (16C48b) and got the same results.
+
+## Notes
+The reproducibility of this issue seems to be dependant both on total elements count and the index of the current selection.
+
+You can reproduce it at least in one of the following scenarios:
+1. 10 elements total, element with index 9 is selected; you add a new element at the end and selection is shifted to element with index 10 (this is demonstrated in the "ScrubberSelectionIssue.mov" screencast)
+2. 13 elements total, element with index 10 is selected; you add a new element at the end and selection is shifted to element with index 11
+
+When selected element is offscreen and you continue to append elements you can find scrubber showing multiple selection (see attached image “Multiple Selection Bug.png”).
